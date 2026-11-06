@@ -111,13 +111,40 @@ class _MaterialsPageState extends State<MaterialsPage> {
     const SizedBox(height:4),Expanded(child:FutureBuilder(future:MaterialStore.instance.search(query,type),builder:(context,snap){
       if(!snap.hasData)return const Center(child:CircularProgressIndicator());
       final rows=snap.data!; if(rows.isEmpty)return const Center(child:Text('No matching materials found.',style:TextStyle(color:muted)));
-      return ListView.builder(padding:const EdgeInsets.fromLTRB(16,4,16,20),itemCount:rows.length,itemBuilder:(context,i){
-        final m=rows[i]; return Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:7),
-          title:Text(m['name'] as String,style:const TextStyle(fontWeight:FontWeight.bold)),
-          subtitle:Padding(padding:const EdgeInsets.only(top:5),child:Text('${m['formula']}  •  ${m['type']}',style:const TextStyle(color:muted,fontSize:12))),
-          trailing:Column(mainAxisAlignment:MainAxisAlignment.center,crossAxisAlignment:CrossAxisAlignment.end,children:[Text('${(m['tc'] as num).toStringAsFixed(2)} K',style:const TextStyle(color:blue,fontWeight:FontWeight.w800,fontSize:16)),const Text('Tc',style:TextStyle(color:muted,fontSize:10))]),
-          onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>MaterialDetail(material:m))));
-      });
+      return ListView.builder(
+  padding: const EdgeInsets.fromLTRB(16, 4, 16, 20),
+  itemCount: rows.length,
+  itemBuilder: (context, i) {
+    final m = rows[i];
+
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 7,
+        ),
+        title: Text(
+          m['name'] as String,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 5),
+          child: Text('${m['formula']} • ${m['type']}'),
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => MaterialDetail(material: m),
+            ),
+          );
+        },
+      ),
+    );
     }))]);
 }
 
