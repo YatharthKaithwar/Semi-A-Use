@@ -145,7 +145,7 @@ class _MaterialsPageState extends State<MaterialsPage> {
         },
       ),
     );
-    }))]);
+    });)]);
 }
 
 class MaterialDetail extends StatelessWidget {
